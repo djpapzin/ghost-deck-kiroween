@@ -1,0 +1,150 @@
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#111419;color:#f5eee3;font:16px system-ui}main{width:min(94vw,560px);padding:28px;border:1px solid #535057;border-radius:20px;background:#24232a;box-shadow:0 20px 60px #0008}small{letter-spacing:.17em;font-weight:700}h1{margin:.2em 0 .7em;font-size:clamp(2.4rem,8vw,4rem);line-height:1}.cassette{background:#e7ae72;color:#261b19;border:8px solid #42312b;border-radius:15px;padding:20px}.cassette:has(#side[data-side=B]){background:#b8a4df}.cassette p{margin:.25em 0 1em}.window{display:flex;align-items:center;justify-content:space-around;background:#29232b;border-radius:12px;padding:10px;margin-bottom:12px}.window i{display:block;width:42px;height:42px;border:8px dotted #f3e7d3;border-radius:50%}.window span{width:24%;height:6px;background:#976c50}.playing i{animation:spin 2s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.playing i{animation:none}}.readout,.controls{display:flex;gap:8px;justify-content:space-between;margin-top:14px}.readout{font-variant-numeric:tabular-nums}.controls{display:grid;grid-template-columns:repeat(3,1fr)}button{padding:12px 3px;background:#36333d;color:inherit;border:1px solid #79727f;border-radius:8px;font:inherit;cursor:pointer}button:hover{background:#4a4453}button:focus-visible{outline:3px solid #e7ae72;outline-offset:2px}
+
+.window .reel {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+.window .reel:hover { border-color: #e7ae72; }
+
+
+/* Uneven hub details make the winding direction visible. */
+.window .reel i {
+  position: relative;
+  border: 6px solid #d9cfbd;
+  background: repeating-conic-gradient(#302a32 0deg 36deg, #b2a38d 36deg 60deg);
+  box-shadow: inset 0 0 0 5px #302a32;
+}
+.window .reel i::before {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #242029;
+  left: 10px;
+  top: 10px;
+}
+.window .reel i::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  background: #ed754b;
+  border: 1px solid #302a32;
+  border-radius: 2px;
+  left: 10px;
+  top: -6px;
+}
+.rewinding .reel i {
+  animation: spin .8s linear infinite reverse;
+}
+.rewinding .window {
+  box-shadow: inset 0 0 12px #ed754b55;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rewinding .reel i { animation: none; }
+}
+
+h1 {
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  letter-spacing: -.055em;
+  font-weight: 800;
+}
+.cassette strong, .cassette p, .readout {
+  font-family: "Courier New", monospace;
+}
+.cassette strong { font-size: 1.25rem; }
+.controls button {
+  min-height: 48px;
+  font-weight: 650;
+  border-bottom: 4px solid #15131a;
+  box-shadow: 0 3px 0 #08070b;
+  transition: transform 100ms ease, background-color 100ms ease, box-shadow 100ms ease;
+}
+.controls button:hover { background: #514957; }
+.controls button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #08070b;
+}
+#play-pause { background: #e7ae72; color: #261b19; }
+#play-pause:hover { background: #f5c58e; }
+@media (prefers-reduced-motion: reduce) {
+  .controls button { transition: none; }
+  .controls button:active { transform: none; }
+}
+
+#track { margin-bottom: .2em; overflow-wrap: anywhere; }
+#artist { font-size: .85rem; margin-bottom: 1em; overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+.cassette-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.cassette-footer small { font-size: .65rem; letter-spacing: .12em; }
+.cassette-upload { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 8px 12px; border: 1px dashed #59402e; border-radius: 6px; font: 700 .75rem "Courier New", monospace; background: #fff2; cursor: pointer; }
+.cassette-upload:hover { background: #fff5; }
+.cassette-upload:focus-within { outline: 3px solid #261b19; outline-offset: 3px; }
+.cassette-upload:has(input:disabled) { opacity: .5; cursor: wait; }
+.cassette-upload input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: inherit; }
+.tape-options { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; color: #c9bfcd; font-size: .75rem; line-height: 1.5; }
+.tape-options span { flex: 1 1 220px; }
+#demo-tape { padding: 8px 10px; font-size: .75rem; background: transparent; }
+#import-status { margin-bottom: 0; font-size: .8rem; line-height: 1.4; }
+#import-status:empty { display: none; }
+.readout { flex-wrap: wrap; }
+
+/* A homemade paper label on a molded cassette shell. */
+.cassette, .cassette:has(#side[data-side=B]) {
+  position: relative;
+  padding: 16px 16px 34px;
+  border: 3px solid #14171a;
+  border-radius: 13px;
+  color: #e2dbcc;
+  background: repeating-linear-gradient(0deg, #fff0 0 3px, #ffffff05 3px 4px), #303436;
+  box-shadow: inset 0 0 0 2px #55595a, inset 0 -12px 18px #151719, 0 6px 0 #111;
+}
+.tape-label {
+  --label-stripe: #ad4d36;
+  position: relative;
+  padding: 21px 14px 10px;
+  border: 1px solid #d2c5a3;
+  border-radius: 7px 7px 18px 18px;
+  color: #263248;
+  background: linear-gradient(to bottom, var(--label-stripe) 0 7px, #e5cb91 7px 10px, var(--label-stripe) 10px 13px, transparent 13px), repeating-linear-gradient(2deg, #fff0 0 5px, #6f5d3d06 5px 6px), #ede3c8;
+  box-shadow: 0 1px 2px #0006;
+}
+.cassette:has(#side[data-side=B]) .tape-label { --label-stripe: #496678; }
+.cassette #side {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid #554f42;
+  border-radius: 2px;
+  color: #4b473d;
+  font: 700 .7rem "Courier New", monospace;
+  text-transform: uppercase;
+}
+.cassette #track, .cassette #artist {
+  font-family: "Bradley Hand", "Segoe Print", "Marker Felt", cursive;
+  color: #27364c;
+  border-bottom: 1px solid #81735355;
+  line-height: 1.25;
+}
+.cassette #track { font-size: clamp(1.25rem, 4.5vw, 1.8rem); font-weight: 700; margin: 5px 0 0; padding: 0 4px 3px; transform: rotate(-1deg); }
+.cassette #artist { font-size: clamp(1rem, 3.5vw, 1.25rem); margin: 3px 0 12px; padding: 0 4px 2px; transform: rotate(-.4deg); }
+.cassette .window { margin-bottom: 0; padding: 9px 4px; border: 3px solid #535859; background: linear-gradient(160deg,#ffffff0d,#0000 50%),#171b1e; border-radius: 8px; box-shadow: inset 0 3px 8px #000b; }
+.cassette .window > span { height: 15px; background: #71513a; border-block: 4px solid #191e20; }
+.cassette-footer { margin-top: 11px; padding-inline: 5px; }
+.cassette-footer small { color: #b9b8af; font-size: .6rem; letter-spacing: .1em; }
+.cassette-upload { min-height: 40px; border: 1px solid #8f8877; background: #e8dfc5; color: #35392f; box-shadow: 0 2px 0 #111; }
+.cassette-upload:hover { background: #faf0d5; }
+.cassette-upload:focus-within { outline-color: #ffcf80; }
+.screw { position: absolute; z-index: 1; width: 7px; height: 7px; border: 1px solid #121416; border-radius: 50%; background: linear-gradient(45deg,transparent 41%,#171b1d 42% 56%,transparent 57%), #93938c; box-shadow: 0 1px 1px #000; }
+.top-left { top: 5px; left: 5px; } .top-right { top: 5px; right: 5px; }
+.bottom-left { bottom: 6px; left: 7px; } .bottom-right { bottom: 6px; right: 7px; }
+.cassette::after { content: ""; position: absolute; bottom: 1px; left: 25%; width: 50%; height: 21px; clip-path: polygon(8% 0,92% 0,100% 100%,0 100%); background: radial-gradient(circle at 25% 65%,#101315 0 3px,transparent 4px),radial-gradient(circle at 75% 65%,#101315 0 3px,transparent 4px),linear-gradient(#505555,#34393c); border-top: 1px solid #696b69; pointer-events: none; }
+
+/* The cassette body flips; embedded controls keep their own actions. */
+.cassette { cursor: pointer; }
