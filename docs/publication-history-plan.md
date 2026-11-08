@@ -1,3 +1,11 @@
+# Historical public-source cleanup plan
+
+## Superseded status — 8 November 2026
+
+The clean-public-snapshot route below was approved and completed before the 6 November Kiroween submission. The engineering repository remains private; https://github.com/djpapzin/ghost-deck-kiroween is public at submitted snapshot 1e5625f. Released main/live use music-only Side A; main’s 8 November design release is bae16d4. No history rewrite was performed. The public snapshot currently differs from production; see hackathon-status.md for the next alignment steps.
+
+The original proposal below is retained as historical rationale, not current status or authorization.
+
 # Public-source cleanup plan — approval required
 
 Prepared 5 November 2026 SAST. No history rewrite, deletion, visibility change or deployment has been performed. Main and live remain on77e7a63. Dev removes the synthesized intro; this plan is a reviewable proposal.

@@ -1,43 +1,38 @@
-# Public release checklist
+# Ghost Deck release record
 
-Target: https://ghostdeck.djpapzin.com/
+## Current production — 8 November 2026 SAST
 
-## Outstanding before publication
+- Live: https://ghostdeck.djpapzin.com/
+- Hosting: Cloudflare Pages, ghost-deck; production direct upload succeeded, 17/17 files.
+- Feature PR #15 -> dev 5c451042985a49ca5a90faa6d1351aee5cc542ab.
+- Promotion PR #16 -> main bae16d473e0fb26d334a0481267208a728282a0a; closes issue #14.
+- Scope: approved old-school artwork in player/Inspect, warm paper theme, animated white hubs and distinct Load song button below the cassette.
+- DJ authorized merge/deployment; every feature and merge commit received Codex review without actionable findings.
 
-- [x] Record DJ’s explicit authorization to release using the uploader’s “copyright free” statement, with attribution and code-licence exclusion.
-- [ ] Verify synthesized speech distribution terms or replace the spoken intro with DJ’s own cleared recording.
-- [ ] Verify the complete public repository tree and history contain no secrets or private material.
-- [ ] Review MIT code licence and the audio exclusions in CREDITS.md.
-- [ ] Complete physical-phone playback and spoken screen-reader checks.
+## Validation
 
-## Proposed hosting: Cloudflare Pages
+Eight regression tests, static build and diff checks passed. All 17 served files matched merged main by SHA-256; index.html is served at / because /index.html redirects.
 
-The app is static and djpapzin.com currently uses Cloudflare nameservers. No hosting project or DNS record was changed during preparation. No DNS answer for ghostdeck.djpapzin.com was returned at the check on 5 November 2026.
+Live browser acceptance passed: Play/Pause; Back preserving Side A; Bottom tape state; rewind completion and Play interruption; Flip landing paused on Side B; local file-picker load/playback; demo restore; Inspect open/close. At 390x844 there was no horizontal overflow. Captured console warnings/errors were empty.
 
-After asset clearance, create a Pages project using a deployment directory containing only index.html, deck.css, main.js, transport.js, and the five WAV audio assets used by transport.js (side-a, side-b, click, flip, rewind-trimmed). Use no framework/build command. Avoid publishing the entire repository as the website root; retain .kiro in GitHub for judging.
+Evidence: https://github.com/djpapzin/ghost-deck/pull/16#issuecomment-6718747992 . Codex promotion review: https://github.com/djpapzin/ghost-deck/pull/16#issuecomment-6718713252 .
 
-Add ghostdeck.djpapzin.com through the Pages Custom domains screen first, then use the exact DNS destination Cloudflare supplies. Do not guess a pages.dev hostname. Keep other domain records unchanged. Verify domain ownership, HTTPS certificate, and actual app/audio loading after provisioning. If a paid plan is requested, stop and review it with DJ.
+Not newly verified: physical-phone production run and spoken screen-reader output. Earlier phone reports apply to their recorded builds.
 
-## Hosted acceptance
+## Hackathon materials
 
-- [ ] Verify HTTPS and successful loading of all JS/CSS/audio assets.
-- [ ] Verify Play/Pause; independent A/B positions; Flip arriving paused.
-- [ ] Verify each reel and Rewind trigger reverse sound/motion without music overlap.
-- [ ] Verify Play interrupts rewind and rapid presses do not overlap audio.
-- [ ] Verify keyboard, reduced-motion, narrow viewport, real phone, and screen-reader behavior.
-- [ ] Update README and Devpost draft with verified URL and remaining limitations.
-- [ ] Capture screenshots and a public YouTube demo under three minutes.
+Kiroween entry was submitted on 6 November. The existing public judging repository and 2:28 video describe the earlier build; they have not been refreshed to include the current design. Follow docs/hackathon-status.md before claiming alignment. The independent public repository remains the source shared with judges; private engineering history must not be mirrored into it.
 
-## Release record — 5 November 2026 SAST
+## Audio and publication boundary
 
-- PR #3 merged as 04ba0f7e3a22868b4afae80aa1a7f659ea80810e; code and five audio assets deployed unchanged.
-- Cloudflare Pages project: ghost-deck. URL: https://ghost-deck.pages.dev/ . Direct upload reported 11/11 files and successful deployment.
-- Custom domain: https://ghostdeck.djpapzin.com/ . Cloudflare reports Active and SSL enabled. CNAME ghostdeck -> ghost-deck.pages.dev, proxied, Auto TTL. No other DNS records changed.
-- The Pages URL was tested in the local IAB: both sides play, Flip arrives paused and restores positions, both holes and Rewind enter rewind, Play interrupts it, rapid controls settle correctly with no console errors observed. Nine runtime files returned 200 and their SHA-256 hashes match main.
-- DJ reported all requested Play, Flip and Rewind phone checks work on mobile data. This is a user-reported physical-device result; device/OS/browser were not recorded.
-- Custom-domain navigation from the release browser initially failed because the local router cached an earlier NXDOMAIN. Authoritative Cloudflare, 1.1.1.1 and 8.8.8.8 resolve it; the router cache is allowed to expire without changing network settings.
-- No Devpost form action was taken. Spoken screen-reader checks and public video remain open. The GitHub repo remains private until its public-repository release.
+Released Side A is music-only, with the old macOS-generated intro removed. The clean public judging repository was created separately from private engineering history. Rewind provenance and DJ’s uploader-statement release basis remain in audio/CREDITS.md; this is not independent ownership verification.
 
-## Development workflow
+## Development and release workflow
 
-main is the release source. dev starts from the released main. Build future features on dev and review a PR to main before promoting; direct-upload hosting does not automatically deploy either branch. Run python3 scripts/build-static.py and upload dist for an explicitly approved release. Never deploy a feature simply because dev changed.
+main is the production source; develop future changes through dev and linked issue/PR pairs. Every commit, including fixes and merge commits, requires Codex review; resolve actionable findings and review the final revision before deployment. Run the tests, build and diff checks. Deploy only dist after specific authorization, then compare served assets and verify live behavior. The code being merged alone does not make a release complete.
+
+## Historical milestones
+
+- 5 November: initial Cloudflare Pages/custom-domain release and DJ-reported mobile-data playback checks.
+- 6 November: music-only public judging snapshot, approved narrated demo and verified Kiroween submission. Inspect released through PR #13 with separate browser and dev-phone evidence.
+- 8 November: old-school design release described above. Older proposed-hosting, pending-submission and speech-still-live statuses are superseded.

@@ -1,55 +1,59 @@
 # Ghost Deck
 
-A browser cassette deck for Kiroween 2026’s Resurrection category. One built-in tape, two sides, and the ritual of playing, rewinding, and turning a cassette over.
+A browser cassette deck for Kiroween 2026’s Resurrection category: two sides, local songs, rewind and the ritual of turning a tape over.
+
+- [Live app](https://ghostdeck.djpapzin.com/)
+- [Submitted project](https://devpost.com/software/ghost-deck)
+- [Public judging source](https://github.com/djpapzin/ghost-deck-kiroween)
+- [Submitted demo](https://www.youtube.com/watch?v=d2dYm-MwEa4) — 2:28
 
 ## Run locally
 
-Requires Python 3 and a modern browser. No build step, backend, account, or API key.
+Requires Python 3 and a modern browser. No backend, account or API key.
 
 ```sh
 python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8765/ from this directory. Start audio with a control press.
+Open http://127.0.0.1:8765/ and start audio with a control press.
 
 ## Controls
 
 - **Play/Pause:** start or pause the active side.
-- **Rewind:** stop music and reset only the current side; either reel hole also rewinds. The effect and reverse reel motion stop together. Play interrupts the effect.
-- **Flip:** click the noninteractive cassette body/paper label or press Flip. It pauses, saves the outgoing position, and turns over to the other side paused at its own saved position. Upload controls and reel holes keep their own actions.
+- **Load song:** use the dark button below the cassette to choose a local audio file for the visible side. Flip to load the other side.
+- **Rewind:** stop music and reset only the active side. Either reel also rewinds. Reverse reel motion and the effect stop together; Play interrupts rewind.
+- **Flip:** press Flip or click the noninteractive cassette body. Each side keeps its position; the destination arrives paused. Embedded reel and upload controls keep their own actions.
+- **Inspect:** rotate with drag, swipe, arrow keys or the six view buttons. Looking at the back does not switch playback sides. The bottom opening shows tape movement; Pause holds it and Rewind reverses it.
+- **Restore demo tape:** restore both generated demo tracks.
 
-Positions last for the open page session. Reload starts fresh. Choose one local song per side; files are not uploaded. No multi-track editing, recording, or saved mixtapes.
+The current theme uses distressed monochrome MIX TAPE artwork, animated white hubs and a warm paper background in both the player and Inspect. Track and artist appear below the cassette.
 
-## Implementation and evidence
+One local song per side, not a multi-track editor. Files stay in the open page’s memory, are never uploaded, and disappear on reload. Embedded metadata is read locally with vendored jsmediatags 3.9.7 (BSD-3-Clause); unsupported tags fall back to the filename and Unknown artist. Browser codec support determines playback.
 
-Static HTML/CSS and JavaScript modules. `transport.js` owns audio and per-side positions; `main.js` coordinates rendering and animation. Rapid commands invalidate stale async work and stop previous audio before starting another source. Native buttons, status announcements, and reduced-motion support are included.
+## Implementation and checks
 
-Actual Kiro review artifacts are tracked under `.kiro/specs/ghost-deck-playback/`; browser checks and static reviews are distinguished there. DJ reported Play, Flip, and Rewind working on a phone over mobile data on 5 November 2026. Spoken screen-reader output remains unverified.
+Static HTML/CSS and JavaScript modules. transport.js owns audio and independent positions; main.js renders the player; inspect.js reuses transport state. Native controls, status announcements and reduced-motion handling are included.
 
-## Release status
+```sh
+node --test tests/*.test.mjs
+python3 scripts/build-static.py
+git diff --check
+```
 
-Live address: https://ghostdeck.djpapzin.com/
+The build allowlists 17 deployable files. Cloudflare Pages uses direct upload; pushing a branch does not deploy it.
 
-Hosted on Cloudflare Pages by direct upload. Current release: PR #8, main commit `77e7a63d681743b8d7c1f49de4d2b6c3fdf3b046` (5 November 2026 SAST). Custom-domain HTTPS, cassette body flip, independent reel/upload actions and saved positions were verified in the browser. All ten page-referenced runtime assets matched main by SHA-256. Eight regression tests pass. Native Audio testing across 80 scripted rapid DOM clicks observed peak active source one, ending paused with zero active. These browser checks are separate from DJ’s earlier phone report.
+Every commit requires Codex review, including fixes and merge commits. Review evidence must cover the exact revision; tests and security checks are separate. See AGENTS.md.
 
-Code is MIT licensed; this does not grant rights to third-party audio. Read [audio credits](audio/CREDITS.md) and [release checklist](RELEASE.md). The rewind sample is used on the uploader’s “copyright free” statement at DJ’s direction, with source attribution. The root `.kiro` directory must remain tracked.
+## Current release and verification
 
-## Load your own songs
+The 8 November 2026 production release is based on engineering source bae16d473e0fb26d334a0481267208a728282a0a. This refresh preserves the public repository’s independent clean history. All commits received Codex review with no actionable findings. All 17 served files matched the merged static build byte for byte. Eight regression tests and the build passed.
 
-Use the Load song control on the visible cassette face; flip to load the other side. The demo tape loads by default. Choose one local audio file for each side. Embedded title/artist tags are read locally using vendored jsmediatags 3.9.7 (BSD-3-Clause; see vendor/jsmediatags-LICENSE.md). MP3/ID3, M4A and FLAC tags are supported by the reader; other playable formats can fall back to the filename and Unknown artist. Browser codec support determines playback. The readout shows elapsed / total time, or --:-- until duration is known.
+Live browser checks covered Play/Pause, Back preserving Side A, Bottom tape state, rewind completion and Play interruption, Flip to paused Side B, local file-picker loading/playback, demo restore and Inspect open/close. At 390x844 the page had no horizontal overflow; no console errors/warnings were captured. DJ confirmed the local design and Inspect. A fresh physical-phone run and spoken screen-reader output were not verified for this release. Earlier phone results are historical evidence, not a new production test.
 
-Selection pauses playback and resets only the replaced side. Restore demo tape restores both built-in sides. Files stay in memory for the open page, are never uploaded, and disappear on reload. No playlist, recording, persistence or sharing is included. This feature is included in the current live release.
+## Hackathon status and provenance
 
-Run transport regression checks with `node --test tests/*.test.mjs`. Build the isolated static package with `python3 scripts/build-static.py`.
+Ghost Deck was submitted to Kiroween on 6 November 2026; the entry remains published/submitted as verified on 8 November. The submitted video and initial public source snapshot at 1e5625f6ea1cbfc6a4c02c07f4cce8ca56133240 show the earlier build. This source refresh includes current production runtime assets. The submitted video still demonstrates the earlier build. The earlier snapshot and submitted video do not demonstrate the later Inspect and old-school design releases. See docs/hackathon-status.md for alignment work; do not claim the judging materials match current production yet.
 
-## Click cassette to flip
+Genuine Kiro review artifacts remain in .kiro/specs/ghost-deck-playback/. They record actual playback/animation reviews and fixes. Codex implemented changes and performed separate tests/reviews; newer work is not presented as additional Kiro work.
 
-Click the cassette body or paper label to flip using the existing paused, position-preserving transport. The upload controls and reel holes keep their own actions. The Flip button remains the keyboard control. This behavior is included in the current live release.
-
-## Public judging snapshot
-
-This repository contains a clean source snapshot of the reviewed Ghost Deck release candidate `2d63c163d09f7b774d95e479f0f387475616f37f`, prepared for Kiroween 2026. It starts with fresh Git history; the original engineering repository remains private. The genuine Kiro reviews, source, tests, MIT licence and BSD dependency notice are retained. Review documents describe the versions/scopes they originally reviewed.
-
-Side A contains only the original generated music (12 seconds); the macOS-generated intro and old Git objects are not included. See audio/CREDITS.md for asset provenance. Personal song files are never bundled in this repo or uploaded by the app.
-
-Public source: https://github.com/djpapzin/ghost-deck-kiroween . Working app: https://ghostdeck.djpapzin.com/ . Source publication and live promotion are verified separately; the live release evidence is recorded below after promotion. A public YouTube demo and final Devpost action are still pending.
+Code is MIT licensed. That does not relicense third-party audio. See audio/CREDITS.md for the generated music, effects and the uploader-statement basis of the rewind sample. The macOS-generated intro was removed from the released audio before submission. Keep private historical Git objects separate from the clean public judging repository.

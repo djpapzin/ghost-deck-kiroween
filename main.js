@@ -1,5 +1,8 @@
 import { createTransport } from './transport.js?v=music-only-1';
 
+import { setupInspect } from './inspect.js?v=inspect-in-place-1';
+
+const inspect = setupInspect();
 const sideLabel = document.querySelector('#side');
 const statusLabel = document.querySelector('#status');
 const elapsed = document.querySelector('#time');
@@ -61,6 +64,7 @@ async function turnCassette(side) {
 }
 
 const transport = createTransport(({ side, position, duration, tracks, status, rewinding }) => {
+  inspect({ side, position, duration, tracks, status, rewinding });
   tapeTracks = tracks;
   if (!requestedSide) showSide(side);
   else if (requestedSide !== side) turnCassette(side);

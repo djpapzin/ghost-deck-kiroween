@@ -15,7 +15,7 @@ Original user-supplied MP3 SHA-256: `c13c945ff19d4ad2ee06076f3d960e7b20d29738f27
 
 ## Other bundled audio
 
-- `side-a.wav`, `side-b.wav`: melodies generated for the prototype. Dev Side A is now music-only: the 83,966-frame macOS-generated intro was removed after an exact match to the original intro WAV; the remaining 264,600 PCM frames (12 seconds at 22,050Hz) are unchanged. This clean public snapshot excludes the intro and the original private Git history. The original engineering repository remains private. Live promotion is a separate verified action. Apple-source finding: https://www.apple.com/legal/sla/docs/macOSTahoe.pdf section2F.
+- `side-a.wav`, `side-b.wav`: melodies generated for the prototype. Released Side A is music-only: the 83,966-frame macOS-generated intro was removed after an exact match to the original intro WAV; the remaining 264,600 PCM frames (12 seconds at 22,050Hz) are unchanged. The cleaned music-only audio was promoted before the 6 November submission and is present in current main/live and the separate public judging snapshot. The intro remains in private engineering history; do not publish that history unchanged. Apple-source finding: https://www.apple.com/legal/sla/docs/macOSTahoe.pdf section2F.
 - `click.wav`: generated for the prototype.
 - `flip.wav`: synthesized handling/clack effect created during development.
 
