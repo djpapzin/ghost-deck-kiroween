@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-const source = (await readFile(new URL('../main.js', import.meta.url), 'utf8')).replace(/^import .*\n/, '');
+const source = (await readFile(new URL('../main.js', import.meta.url), 'utf8')).replace(/^import .*\n/gm, '');
 function setup() {
   let render;
   const commands = { flips: 0 };
@@ -26,6 +26,7 @@ function setup() {
   const state = { side: 'A', position: 0, duration: 60, status: 'Paused', rewinding: false, tracks: { A: { title: 'A file', artist: 'Unknown artist' }, B: { title: 'B file', artist: 'Unknown artist' } } };
   vm.runInNewContext(source, {
     document: { querySelector: node, querySelectorAll: selector => selector === '[data-upload-side]' ? uploads : selector === 'input[type=file]' ? uploads.map(x => x.querySelector()) : [] },
+    setupInspect: () => () => {},
     matchMedia: () => ({ matches: false }),
     createTransport(callback) { render = callback; callback(state); return { flip() { commands.flips++; } }; }
   });

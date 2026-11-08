@@ -1,0 +1,62 @@
+/* Approved old-school theme. Native transport and Inspect motion remain wired. */
+html body {background:#eee7d8;color:#191917;font-family:'Avenir Next',system-ui,sans-serif;padding:24px 0 40px;display:flex;justify-content:center;align-items:flex-start;background-image:url('old-school-art.png');background-size:1800px auto;background-position:center top;}
+html main {width:min(94vw,650px);padding:24px 30px;background:#f4eddeeb;border:0;border-radius:0;box-shadow:none;text-align:center;}
+header small {display:none}html h1 {font-size:clamp(2.5rem,9vw,4.4rem);letter-spacing:.035em;text-transform:uppercase;margin:0 0 34px;}
+html .cassette,html .cassette:has(#side[data-side=B]) {position:relative;aspect-ratio:886/570;padding:0;border:0;border-radius:3%;background:url('old-school-art.png') center 34.1% / 115.58% auto no-repeat;color:#191917;box-shadow:0 12px 18px #34271930;}
+html .cassette::after,html .screw {display:none}html .tape-label {position:absolute;inset:0;padding:0;border:0;background:none;box-shadow:none;color:inherit;}
+html .cassette #side {position:absolute;bottom:calc(100% + 9px);left:0;width:100%;border:0;padding:0;background:none;font:700 .8rem system-ui;letter-spacing:.35em;}
+html .cassette #track,html .cassette #artist {display:none}
+html .cassette .window {position:absolute;left:0;right:0;top:28%;height:33%;padding:0;margin:0;border:0;background:none;box-shadow:none;}
+html .cassette .window>span {display:none}html .window .reel {position:absolute;top:0;width:20%;height:auto;aspect-ratio:1;border:0;}
+html .window .reel:first-child {left:18.8%}html .window .reel:last-child {right:19.3%}
+html .window .reel i {width:69%;height:69%;border:8px solid #eeeae1;border-radius:50%;background:repeating-conic-gradient(#eeeae1 0deg 42deg,#4e4e49 42deg 64deg);box-shadow:0 0 0 1px #dad5c8;}
+html .window .reel i::before {width:40%;height:40%;left:30%;top:30%;background:#b6b4aa;border-radius:50%;}html .window .reel i::after {display:none}
+html .cassette-footer {position:absolute;left:8%;right:8%;top:62%;margin:0;padding:0;justify-content:flex-end;}
+html .cassette-footer small {display:none}html .cassette-upload {min-height:30px;padding:4px 8px;background:#e9e5dbc9;border:1px solid #79776f;color:#20201d;box-shadow:none;font-size:.65rem;border-radius:2px;}
+.old-school {font:italic clamp(2.3rem,8vw,3.6rem) 'Snell Roundhand','Bradley Hand',cursive;margin:14px 0 10px;}
+html .readout {font: .9rem 'Courier New',monospace;border-bottom:3px solid #7c786d;padding-bottom:12px;margin:8px 0 22px;}html .controls {display:flex;justify-content:center;align-items:center;gap:28px;margin:0;}
+html .controls button {width:72px;height:72px;min-height:0;border:2px solid #242420;border-radius:50%;background:transparent;color:#242420;box-shadow:none;font-size:.8rem;}
+html .controls button:first-child {order:2;width:92px;height:92px;background:#20201d;color:#f5efdf;font-size:1rem;}html .controls button:nth-child(2){order:1}html .controls button:nth-child(3){order:3}
+html button:hover,html #play-pause:hover {background:#d5cdbb;color:#191917}html button:focus-visible {outline:3px solid #746846;}
+html #inspect-toggle {width:auto;min-width:160px;background:transparent;border:2px solid #252521;color:#252521;border-radius:30px;padding:8px 22px;font-size:.8rem;margin-top:22px;}
+html #inspect-panel {background:#e9e1d0;border-color:#b0a793;}html #inspect-help,html #inspect-motion {color:#35352e}html .inspect-views button {background:#f4eedf;color:#222;border-color:#a89e88;}
+html #inspect-stage {background:radial-gradient(ellipse,#e7dfcf,#b9b1a1)}
+html .tape-options {color:#635f55;justify-content:center;margin-top:24px}html .tape-options span {flex-basis:100%}html #demo-tape {color:inherit;border-color:#aaa28e;}
+@media(max-width:420px){html main{padding:18px 12px}html .controls{gap:20px}html .controls button{width:62px;height:62px}html .controls button:first-child{width:80px;height:80px}html .window .reel i{border-width:5px}html .cassette-upload{font-size:.55rem;min-height:27px;padding:3px 5px}.old-school{margin-top:12px}}
+
+html body {background-image:repeating-linear-gradient(15deg,#86734d05 0 1px,transparent 1px 4px),radial-gradient(ellipse at top,#f7f0e2,#e8deca);background-size:auto;background-position:0 0;}
+html main {background:transparent;}
+html .controls #play-pause {background:#20201d;color:#f5efdf;}
+.now-playing #track {font-weight:650;font-size:.9rem;margin:0;}
+.now-playing #artist {font-size:.75rem;color:#6d6659;margin:3px 0 14px;}
+/* Use the accepted cassette artwork on both sides of the inspect model. */
+html .inspect-front,html .inspect-back {
+  display:block;
+  border:0;
+  border-radius:3%;
+  background:url('old-school-art.png') center 34.1% / 115.58% auto no-repeat;
+  box-shadow:inset 0 0 0 1px #48463e;
+  color:#242420;
+}
+html .inspect-front .inspect-label,html .inspect-back .inspect-label {
+  position:absolute;left:7%;right:7%;top:4%;width:auto;height:19%;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:0 5px;background:transparent;border:0;color:#26251f;
+}
+html .inspect-label strong {position:absolute;right:0;top:0;background:#e9e4d9e8;padding:2px 4px;font-size:clamp(6px,2cqw,9px)}
+html .inspect-label span {display:none}
+html .inspect-window {position:absolute;left:0;right:0;top:28%;width:100%;height:33%;border:0;background:transparent;}
+html .inspect-pack {position:absolute;top:0;width:20%;height:auto;aspect-ratio:1;background:transparent;scale:1;}
+html .inspect-window .inspect-pack:first-child {left:18.8%}
+html .inspect-window .inspect-pack:last-child {right:19.3%}
+html .inspect-pack b {height:69%;width:69%;border:5px solid #eeeae1;background:repeating-conic-gradient(#eeeae1 0deg 42deg,#4e4e49 42deg 64deg);box-shadow:0 0 0 1px #dad5c8;position:relative;}
+html .inspect-pack b::after {content:'';position:absolute;inset:30%;border-radius:50%;background:#b6b4aa;}
+html .inspect-front>small,html .inspect-back>small {display:none}
+html .inspect-face:not(.inspect-front):not(.inspect-back) {border-color:#716e63;background:repeating-linear-gradient(0deg,#eee9dc 0 2px,#aaa79c 2px 3px,#d6d1c3 3px 5px);color:#282720;}
+html .inspect-tape {border-color:#999384;background:repeating-linear-gradient(110deg,#45423b 0 3px,#23221e 4px 12px);background-size:12px 100%;background-position-x:var(--tape-offset);}
+/* Keep song import distinct from the cassette artwork at every size. */
+html .cassette-slot {margin-bottom:62px;}
+html .cassette-footer {top:calc(100% + 14px);left:0;right:0;justify-content:center;}
+html .cassette-upload {min-height:44px;padding:10px 22px;border:2px solid #242420;border-radius:6px;background:#242420;color:#fff9ed;box-shadow:0 3px 0 #0002;font:700 .85rem system-ui,sans-serif;}
+html .cassette-upload:hover {background:#48463e;color:#fff;}
+html .cassette-upload:focus-within {outline:3px solid #786c49;outline-offset:4px;}
